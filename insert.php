@@ -3,9 +3,21 @@ include "connection.php";
 if(isset($_POST['signup'])){
     $name=$_POST['name'];
     $email=$_POST['email'];
-    $insert=$connect->query("INSERT INTO `signup`(`name`, `email`) VALUES ('$name','$email')");
+    $password=$_POST['password'];
+    $confirm=$_POST['confirm'];
+    if($password==$confirm){
+        $insert=$connect->query("INSERT INTO `users`(`name`, `email`, `password`) VALUES ('$name','$email','$password')");
+    }
+    else{
+        echo "<script>alert('Double check your credentials')</script>";
+    }
     if($insert){
-    echo "<script>alert('$name's account successfully created')</script>";
+    ?>
+    <script>
+        window.alert("account created");
+        window.location.href="login.php";
+    </script>
+    <?php
 }
 }
 ?>
